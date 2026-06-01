@@ -62,8 +62,8 @@ ALTER TABLE public.provincias ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
 
 COPY public.provincias (nombre, nombre_completo, latitud, longitud, orden_visualizacion, id) FROM stdin;
 Buenos Aires	Provincia de Buenos Aires	-36.6769	-60.5588	1	1
-CÃ³rdoba	Provincia de CÃ³rdoba	-31.4173	-64.1833	2	2
 Santa Fe	Provincia de Santa Fe	-31.6333	-60.7000	3	3
+CÃ³rdoba	Provincia de CÃ³rdoba	-31.4173	-64.1833	2	2
 Mendoza	Provincia de Mendoza	-32.8895	-68.8458	4	4
 Chaco	Provincia del Chaco	-27.4514	-58.9867	5	5
 \.
