@@ -30,5 +30,20 @@ router.get("/:id", async (req, res) => {
         else res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message });
     }
 }
+
+
+
 );
-export default router;
+
+router.post("/", async (req, res) => {
+    const provinciaAgregar = req.body;
+        try {
+            const nuevaProvincia = await provinceService.addProvince(provinciaAgregar);
+            res.status(StatusCodes.CREATED).json(nuevaProvincia);
+        }
+        catch (error) {
+            res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message });
+        }
+
+}
+    export default router;
