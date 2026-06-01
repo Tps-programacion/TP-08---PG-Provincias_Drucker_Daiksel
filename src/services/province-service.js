@@ -39,6 +39,7 @@ class provinceService {
         }
 
 }
+}
     function validarId(id) {
         const idNum = parseInt(id);
         if (isNaN(idNum) || idNum <= 0) {
