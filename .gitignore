@@ -1,0 +1,57 @@
+# Dependencias
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Variables de entorno
+.env
+
+# Archivos de cobertura de pruebas
+coverage/
+.nyc_output/
+
+# Logs del sistema
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+
+# Bases de datos y sesiones
+*.sqlite
+*.sqlite3
+session.json
+dump.rdb
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Configuración del editor
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+# Archivos de construcción
+dist/
+build/
+tmp/
+
+# Archivos de configuración local
+.local/
+# Archivos de configuración de Docker
+docker-compose.override.yml
+# Archivos de configuración de Kubernetes
+kubeconfig
+# Archivos de configuración de CI/CD
+ci/
+cd/
+# Archivos de configuración de pruebas
+test/
+# Archivos de configuración de seguridad
+security/
