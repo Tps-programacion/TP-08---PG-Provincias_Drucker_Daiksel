@@ -39,12 +39,24 @@ router.post("/", async (req, res) => {
     const provinciaAgregar = req.body;
         try {
             const nuevaProvincia = await provinceService.addProvince(provinciaAgregar);
-            res.status(StatusCodes.CREATED).json(nuevaProvincia);
+            res.status(StatusCodes.CREATED).json({
+                message: "La provincia fue agregada con éxito",
+                data: nuevaProvincia
+            });
         }
         catch (error) {
-            res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message });
+        if (error.message === "No fue posible agregar la provincia a la base de datos") {
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ 
+                error: error.message 
+            });
+        } else {
+            return res.status(StatusCodes.BAD_REQUEST).json({ 
+                error: error.message 
+            });
         }
-
 }
-);
+
+});
+
+
     export default router;

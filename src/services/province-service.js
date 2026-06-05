@@ -1,5 +1,6 @@
 import ProvinceRepository from "../repositories/province-repository.js";
 import Province from "../entities/province.js";
+import Helper from "../helpers/validaciones-helper.js"
 class provinceService {
     constructor() {
         this.provinceRepository = new ProvinceRepository();
@@ -21,22 +22,30 @@ class provinceService {
     }
 
     addProvince = async (provinciaAgregar) => {
-        try {
-            const provinciaParaAgregar = new Province();{
-                id = provinciaAgregar.id;
-                nombre = provinciaAgregar.nombre;
-                nombre_completo = provinciaAgregar.nombre_completo;
-                latitud = provinciaAgregar.latitud;
-                longitud = provinciaAgregar.longitud;
-                orden_visualizacion = provinciaAgregar.orden_visualizacion;
+    
+            const mensajeValidador = Helper.validadorDatos()
+            if(mensajeValidador === null){
+                    try {
+                    
+                    const provinciaParaAgregar = new Province();
+                    provinciaParaAgregar.nombre = provinciaAgregar.nombre;
+                    provinciaParaAgregar.nombre_completo = provinciaAgregar.nombre_completo;
+                    provinciaParaAgregar.latitud = provinciaAgregar.latitud;
+                    provinciaParaAgregar.longitud = provinciaAgregar.longitud;
+                    provinciaParaAgregar.orden_visualizacion = provinciaAgregar.orden_visualizacion;
+                    
+                    const nuevaProvincia = await this.provinceRepository.addProvince(provinciaParaAgregar);
+                    return nuevaProvincia;
+                }
+                catch (error) {
+                    throw new Error("No fue posible agregar la provincia a la base de datos");
+                }
             }
-            //Hacer logica de negocio para validar provincia
-            const nuevaProvincia = await this.provinceRepository.addProvince(provinciaParaAgregar);
-            return nuevaProvincia;
-        }
-        catch (error) {
-            throw new Error("No fue posible agregar la provincia a la base de datos");
-        }
+            else{
+                throw new Error(mensajeValidador);
+            }
+            
+            
 
 }
 }
