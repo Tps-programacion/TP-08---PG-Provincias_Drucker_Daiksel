@@ -1,6 +1,6 @@
 import ProvinceRepository from "../repositories/province-repository.js";
 import Province from "../entities/province.js";
-import validaciones from "../helpers/validaciones-helper.js"
+import { validarProvincia } from "../helpers/validaciones-helper.js";
 class provinceService {
     constructor() {
         this.provinceRepository = new ProvinceRepository();
@@ -23,11 +23,18 @@ class provinceService {
 
     addProvince = async (provinciaAgregar) => {
     
-            const mensajeValidador = validaciones.validarProvincia(provinciaAgregar);
+            const mensajeValidador = validarProvincia(provinciaAgregar);
             if(mensajeValidador === null){
                     try {
                     
-                    const provinciaParaAgregar = new Province(null, provinciaAgregar.nombre, provinciaAgregar.nombre_completo, provinciaAgregar.latitud, provinciaAgregar.longitud, provinciaAgregar.orden_visualizacion);
+                    const provinciaParaAgregar = new Province(
+                        null, 
+                        provinciaAgregar.nombre, 
+                        provinciaAgregar.nombre_completo, 
+                        provinciaAgregar.latitud, 
+                        provinciaAgregar.longitud, 
+                        provinciaAgregar.orden_visualizacion
+                    );
                     const nuevaProvincia = await this.provinceRepository.addProvince(provinciaParaAgregar);
                     return nuevaProvincia;
                 }

@@ -33,3 +33,10 @@ export const validarProvincia = (provincia) => {
     // Si pasa todas las validaciones, retornamos null (significa que no hay errores)
     return null; 
 };
+
+export const validarId = (id) => {
+    if(!isNaN(id) && id > 0){
+        return "El id debe ser valido"
+    }
+    else return null
+}
