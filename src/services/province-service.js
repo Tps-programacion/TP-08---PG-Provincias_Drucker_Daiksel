@@ -1,6 +1,6 @@
 import ProvinceRepository from "../repositories/province-repository.js";
 import Province from "../entities/province.js";
-import Helper from "../helpers/validaciones-helper.js"
+import validaciones from "../helpers/validaciones-helper.js"
 class provinceService {
     constructor() {
         this.provinceRepository = new ProvinceRepository();
@@ -23,17 +23,11 @@ class provinceService {
 
     addProvince = async (provinciaAgregar) => {
     
-            const mensajeValidador = Helper.validadorDatos()
+            const mensajeValidador = validaciones.validarProvincia(provinciaAgregar);
             if(mensajeValidador === null){
                     try {
                     
-                    const provinciaParaAgregar = new Province();
-                    provinciaParaAgregar.nombre = provinciaAgregar.nombre;
-                    provinciaParaAgregar.nombre_completo = provinciaAgregar.nombre_completo;
-                    provinciaParaAgregar.latitud = provinciaAgregar.latitud;
-                    provinciaParaAgregar.longitud = provinciaAgregar.longitud;
-                    provinciaParaAgregar.orden_visualizacion = provinciaAgregar.orden_visualizacion;
-                    
+                    const provinciaParaAgregar = new Province(null, provinciaAgregar.nombre, provinciaAgregar.nombre_completo, provinciaAgregar.latitud, provinciaAgregar.longitud, provinciaAgregar.orden_visualizacion);
                     const nuevaProvincia = await this.provinceRepository.addProvince(provinciaParaAgregar);
                     return nuevaProvincia;
                 }
@@ -49,11 +43,5 @@ class provinceService {
 
 }
 }
-    function validarId(id) {
-        const idNum = parseInt(id);
-        if (isNaN(idNum) || idNum <= 0) {
-            return false;
-        }
-        else return true;
-    }
+
 export default provinceService;
