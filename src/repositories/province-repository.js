@@ -1,4 +1,5 @@
 import dbConfig from "../configs/db-config.js";
+import LogHelper from "../helpers/logHelper.js";
 
 class ProvinceRepository {
     async getProvinces() {
@@ -7,6 +8,7 @@ class ProvinceRepository {
             const result = await dbConfig.query(query);
             return result.rows;
         } catch (error) {
+            LogHelper.logError(error);
             throw new Error("No fue posible acceder a la base de datos");
         }
 }
@@ -17,7 +19,8 @@ class ProvinceRepository {
             const result = await dbConfig.query(query, [id]);
             return result.rows[0];
         } catch (error) {
-            throw new Error("No fue posible acceder a la base de datos");
+                LogHelper.logError(error);
+                throw new Error("No fue posible acceder a la base de datos");
         }
     }
 
@@ -44,6 +47,7 @@ class ProvinceRepository {
                 throw new Error("Ya existe una provincia registrada con ese nombre.");
             }
             console.error("Error en Repository:", error);
+            LogHelper.logError(error);
             throw new Error(error.message); // Esto escupe el error textual de PostgreSQL
         }
     }
@@ -53,6 +57,7 @@ class ProvinceRepository {
             const result = await dbConfig.query(query, [id]);
             return result.rowCount; // Devuelve 1 si eliminó algo, o 0 si no existía
         } catch (error) {
+            LogHelper.logError(error);
             throw new Error("No fue posible acceder a la base de datos");
         }
     }
