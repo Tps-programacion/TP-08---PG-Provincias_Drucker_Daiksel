@@ -5,7 +5,7 @@
 -- Dumped from database version 16.2
 -- Dumped by pg_dump version 16.2
 
--- Started on 2026-06-01 08:49:21
+-- Started on 2026-06-08 09:36:02
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -18,12 +18,29 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
+--
+-- TOC entry 2 (class 3079 OID 16384)
+-- Name: adminpack; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS adminpack WITH SCHEMA pg_catalog;
+
+
+--
+-- TOC entry 4789 (class 0 OID 0)
+-- Dependencies: 2
+-- Name: EXTENSION adminpack; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION adminpack IS 'administrative functions for PostgreSQL';
+
+
 SET default_tablespace = '';
 
 SET default_table_access_method = heap;
 
 --
--- TOC entry 215 (class 1259 OID 16400)
+-- TOC entry 216 (class 1259 OID 16416)
 -- Name: provincias; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -40,7 +57,7 @@ CREATE TABLE public.provincias (
 ALTER TABLE public.provincias OWNER TO postgres;
 
 --
--- TOC entry 216 (class 1259 OID 16407)
+-- TOC entry 217 (class 1259 OID 16421)
 -- Name: provincias_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -55,31 +72,38 @@ ALTER TABLE public.provincias ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
 
 
 --
--- TOC entry 4779 (class 0 OID 16400)
--- Dependencies: 215
+-- TOC entry 4782 (class 0 OID 16416)
+-- Dependencies: 216
 -- Data for Name: provincias; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.provincias (nombre, nombre_completo, latitud, longitud, orden_visualizacion, id) FROM stdin;
-Buenos Aires	Provincia de Buenos Aires	-36.6769	-60.5588	1	1
-Santa Fe	Provincia de Santa Fe	-31.6333	-60.7000	3	3
-CÃ³rdoba	Provincia de CÃ³rdoba	-31.4173	-64.1833	2	2
-Mendoza	Provincia de Mendoza	-32.8895	-68.8458	4	4
-Chaco	Provincia del Chaco	-27.4514	-58.9867	5	5
-\.
+INSERT INTO public.provincias OVERRIDING SYSTEM VALUE VALUES ('Buenos Aires', 'Provincia de Buenos Aires', -36.6769, -60.5588, 1, 6);
+INSERT INTO public.provincias OVERRIDING SYSTEM VALUE VALUES ('Santa Fe', 'Provincia de Santa Fe', -31.6333, -60.7000, 3, 7);
+INSERT INTO public.provincias OVERRIDING SYSTEM VALUE VALUES ('Córdoba', 'Provincia de Córdoba', -31.4173, -64.1833, 2, 8);
+INSERT INTO public.provincias OVERRIDING SYSTEM VALUE VALUES ('Mendoza', 'Provincia de Mendoza', -32.8895, -68.8458, 4, 9);
+INSERT INTO public.provincias OVERRIDING SYSTEM VALUE VALUES ('Chaco', 'Provincia del Chaco', -27.4514, -58.9867, 5, 10);
 
 
 --
--- TOC entry 4786 (class 0 OID 0)
--- Dependencies: 216
+-- TOC entry 4790 (class 0 OID 0)
+-- Dependencies: 217
 -- Name: provincias_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.provincias_id_seq', 5, true);
+SELECT pg_catalog.setval('public.provincias_id_seq', 11, true);
 
 
 --
--- TOC entry 4635 (class 2606 OID 16414)
+-- TOC entry 4636 (class 2606 OID 16425)
+-- Name: provincias provincia_nombre_unico; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.provincias
+    ADD CONSTRAINT provincia_nombre_unico UNIQUE (nombre);
+
+
+--
+-- TOC entry 4638 (class 2606 OID 16423)
 -- Name: provincias provincias_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -87,7 +111,7 @@ ALTER TABLE ONLY public.provincias
     ADD CONSTRAINT provincias_pk PRIMARY KEY (id);
 
 
--- Completed on 2026-06-01 08:49:21
+-- Completed on 2026-06-08 09:36:02
 
 --
 -- PostgreSQL database dump complete

@@ -25,22 +25,16 @@ class provinceService {
     
             const mensajeValidador = validarProvincia(provinciaAgregar);
             if(mensajeValidador === null){
-                    try {
+                    const provinciaParaAgregar = new Province();
+                    provinciaParaAgregar.nombre = provinciaAgregar.nombre;
+                    provinciaParaAgregar.nombre_completo = provinciaAgregar.nombre_completo;
+                    provinciaParaAgregar.latitud = provinciaAgregar.latitud;
+                    provinciaParaAgregar.longitud = provinciaAgregar.longitud;
+                    provinciaParaAgregar.orden_visualizacion = provinciaAgregar.orden_visualizacion;
                     
-                    const provinciaParaAgregar = new Province(
-                        null, 
-                        provinciaAgregar.nombre, 
-                        provinciaAgregar.nombre_completo, 
-                        provinciaAgregar.latitud, 
-                        provinciaAgregar.longitud, 
-                        provinciaAgregar.orden_visualizacion
-                    );
                     const nuevaProvincia = await this.provinceRepository.addProvince(provinciaParaAgregar);
-                    return nuevaProvincia;
-                }
-                catch (error) {
-                    throw new Error("No fue posible agregar la provincia a la base de datos");
-                }
+                    
+                    return nuevaProvincia;   
             }
             else{
                 throw new Error(mensajeValidador);

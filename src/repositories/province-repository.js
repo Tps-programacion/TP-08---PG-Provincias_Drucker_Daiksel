@@ -36,9 +36,6 @@ class ProvinceRepository {
                 provincia.longitud, 
                 provincia.orden_visualizacion
             ];
-            
-            // ACÁ ESTÁ LA MAGIA: Usamos el Pool directamente.
-            // Él solito agarra una conexión abierta, ejecuta, y la suelta sin que hagamos nada.
             const result = await dbConfig.query(sql, values);
             return result.rows[0]; 
             
@@ -47,7 +44,7 @@ class ProvinceRepository {
                 throw new Error("Ya existe una provincia registrada con ese nombre.");
             }
             console.error("Error en Repository:", error);
-            throw new Error("No fue posible agregar la provincia a la base de datos");
+            throw new Error(error.message); // Esto escupe el error textual de PostgreSQL
         }
     }
 }
