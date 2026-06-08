@@ -29,11 +29,7 @@ router.get("/:id", async (req, res) => {
         }
         else res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message });
     }
-}
-
-
-
-);
+});
 
 router.post("/", async (req, res) => {
     const provinciaAgregar = req.body;
@@ -55,8 +51,56 @@ router.post("/", async (req, res) => {
             });
         }
 }
-
 });
 
+
+
+router.delete("/:id", async (req, res) => {
+    const id = req.params.id;
+    try {
+        const rowsAffected = await provinceService.deleteProvinceById(id);
+
+        if (rowsAffected > 0) {
+            return res.status(StatusCodes.OK).send("Provincia eliminada con éxito.");
+        }
+         else {
+            return res.status(StatusCodes.NOT_FOUND).json({ error: "Provincia no encontrada" });
+        }
+
+    } catch (error) {
+        if(error.message == "ID inválido. Debe ser un número entero positivo."){
+            return res.status(StatusCodes.BAD_REQUEST).json({error: error.message})
+        }
+        else{
+            res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message });
+        }
+    }
+});
+
+router.put("/", async (req, res) => {
+    const provinciaActualizar = req.body;
+
+    try {
+        const rowsAffected = await provinceService.updateProvince(provinciaActualizar);
+
+        if (rowsAffected > 0) {
+            return res.status(StatusCodes.CREATED).json({ 
+            message: "Provincia actualizada con éxito." 
+            });
+        } else {
+            return res.status(StatusCodes.NOT_FOUND).json({ 
+                error: "Provincia no encontrada." 
+            });
+        }
+
+    } catch (error) {
+        if (error.message === "No fue posible acceder a la base de datos para actualizar") {
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message });
+        } 
+        else {
+            return res.status(StatusCodes.BAD_REQUEST).json({ error: error.message });
+        }
+    }
+});
 
     export default router;

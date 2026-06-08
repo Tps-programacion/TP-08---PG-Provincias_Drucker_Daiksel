@@ -1,6 +1,7 @@
 import ProvinceRepository from "../repositories/province-repository.js";
 import Province from "../entities/province.js";
 import { validarProvincia } from "../helpers/validaciones-helper.js";
+import { validarId } from "../helpers/validaciones-helper.js";
 class provinceService {
     constructor() {
         this.provinceRepository = new ProvinceRepository();
@@ -39,10 +40,31 @@ class provinceService {
             else{
                 throw new Error(mensajeValidador);
             }
-            
-            
-
 }
+    deleteProvinceById = async (id) => {
+        if(validarId(id)){
+            const rowsAffected = await this.provinceRepository.deleteProvinceById(id);
+            return rowsAffected;
+        }    
+        else {
+            throw new Error("ID inválido. Debe ser un número entero positivo.");
+        }
+        
+    }
+
+    updateProvince = async (provinciaActualizar) => {
+        if (!validarId(provinciaActualizar.id)) {
+            throw new Error("El ID proporcionado no es válido. Debe ser un número entero positivo.");
+        }
+        const mensajeValidador = validarProvincia(provinciaActualizar);
+        if (mensajeValidador !== null) {
+            throw new Error(mensajeValidador);
+        }
+        const rowsAffected = await this.provinceRepository.updateProvince(provinciaActualizar);
+        
+        return rowsAffected;
+    }
+
 }
 
 export default provinceService;

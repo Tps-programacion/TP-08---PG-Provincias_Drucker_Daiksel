@@ -35,8 +35,9 @@ export const validarProvincia = (provincia) => {
 };
 
 export const validarId = (id) => {
-    if(!isNaN(id) && id > 0){
-        return "El id debe ser valido"
+    const num = Number(id);
+    if (Number.isInteger(num) && num > 0) {
+        return true;
     }
-    else return null
+    else return false;
 }
