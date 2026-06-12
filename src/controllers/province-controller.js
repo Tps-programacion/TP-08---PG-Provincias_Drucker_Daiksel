@@ -41,16 +41,17 @@ router.post("/", async (req, res) => {
             });
         }
         catch (error) {
-        if (error.message === "No fue posible agregar la provincia a la base de datos") {
-            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ 
-                error: error.message 
-            });
-        } else {
+        if (error.message === "Ya existe una provincia registrada con ese nombre." || error.message.includes("requerid") || error.message.includes("letras")) {
             return res.status(StatusCodes.BAD_REQUEST).json({ 
-                error: error.message 
-            });
+            error: error.message 
+        });
+        } 
+        else {
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ 
+            error: "Error interno del servidor al agregar la provincia." 
+        });
         }
-}
+    }
 });
 
 
@@ -94,7 +95,7 @@ router.put("/", async (req, res) => {
         }
 
     } catch (error) {
-        if (error.message === "No fue posible acceder a la base de datos para actualizar") {
+        if (error.message.includes("No fue posible acceder a la base de datos para actualizar")) {
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message });
         } 
         else {

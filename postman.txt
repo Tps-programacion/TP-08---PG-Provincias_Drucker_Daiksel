@@ -1,0 +1,153 @@
+
+Método: POST
+URL: http://localhost:3000/api/province
+Body (JSON):
+{
+  "nombre": "Salta",
+  "nombre_completo": "Provincia de Salta",
+  "longitud": -65.41166,
+  "orden_visualizacion": 5
+}
+Resultado Esperado: 400 Bad Request
+---------------------------------------------------------
+2. POST /api/province
+---------------------------------------------------------
+Método: POST
+URL: http://localhost:3000/api/province
+Body (JSON):
+{
+  "nombre": "Sa",
+  "nombre_completo": "Provincia de Salta",
+  "latitud": -24.7821,
+  "longitud": -65.4116,
+  "orden_visualizacion": 5
+}
+Resultado Esperado: 400 Bad Request
+
+---------------------------------------------------------
+3. POST /api/province 
+---------------------------------------------------------
+Método: POST
+URL: http://localhost:3000/api/province
+Body (JSON):
+{
+  "nombre": "Mendoza",
+  "nombre_completo": "Provincia de Mendoza",
+  "latitud": -32.8894587,
+  "longitud": -68.8458386,
+  "orden_visualizacion": 1
+}
+Resultado Esperado (primera vez): 201 CREATED (2da vez): 400 Bad Request
+
+---------------------------------------------------------
+4. GET /api/province/:id 
+---------------------------------------------------------
+Método: GET
+URL: http://localhost:3000/api/province/abc
+Resultado Esperado: 400 Bad Request
+
+---------------------------------------------------------
+5. GET /api/province/:id
+---------------------------------------------------------
+Método: GET
+URL: http://localhost:3000/api/province/999999
+Resultado Esperado: 404 Not Found
+
+
+---------------------------------------------------------
+6. PUT /api/province
+---------------------------------------------------------
+Método: PUT
+URL: http://localhost:3000/api/province
+Body (JSON):
+{
+  "id": "tres",
+  "nombre": "Tucuman",
+  "nombre_completo": "Provincia de Tucuman",
+  "latitud": -26.83,
+  "longitud": -65.21,
+  "orden_visualizacion": 4
+}
+Resultado Esperado: 400 Bad Request
+
+---------------------------------------------------------
+7. PUT /api/province 
+---------------------------------------------------------
+Método: PUT
+URL: http://localhost:3000/api/province
+Body (JSON):
+{
+  "id": 999999,
+  "nombre": "Tucuman Modificada",
+  "nombre_completo": "Provincia de Tucuman Modificada",
+  "latitud": -26.83,
+  "longitud": -65.21,
+  "orden_visualizacion": 4
+}
+Resultado Esperado: 404 Not Found
+
+---------------------------------------------------------
+8. DELETE /api/province/:id 
+---------------------------------------------------------
+Método: DELETE
+URL: http://localhost:3000/api/province/idFalso
+Resultado Esperado: 400 Bad Request
+
+---------------------------------------------------------
+9. DELETE /api/province/:id 
+---------------------------------------------------------
+Método: DELETE
+URL: http://localhost:3000/api/province/999999
+Resultado Esperado: 404 Not Found
+
+---------------------------------------------------------
+1. OBTENER TODAS LAS PROVINCIAS
+---------------------------------------------------------
+Método: GET
+URL: http://localhost:3000/api/province
+Resultado Esperado: 200 OK
+
+---------------------------------------------------------
+2. CREAR UNA NUEVA PROVINCIA
+---------------------------------------------------------
+Método: POST
+URL: http://localhost:3000/api/province
+Body (JSON):
+{
+  "nombre": "Chubut",
+  "nombre_completo": "Provincia del Chubut",
+  "latitud": -43.2934,
+  "longitud": -65.1023,
+  "orden_visualizacion": 6
+}
+Resultado Esperado: 201 Created
+
+---------------------------------------------------------
+3. OBTENER UNA PROVINCIA ESPECÍFICA POR ID
+---------------------------------------------------------
+Método: GET
+URL: http://localhost:3000/api/province/
+Resultado Esperado: 200 OK
+
+---------------------------------------------------------
+4. ACTUALIZAR UNA PROVINCIA EXISTENTE
+---------------------------------------------------------
+Método: PUT
+URL: http://localhost:3000/api/province
+Body (JSON):
+{
+  "id": 1,
+  "nombre": "Chubut Actualizada",
+  "nombre_completo": "Provincia del Chubut Modificada",
+  "latitud": -43.3000,
+  "longitud": -65.1000,
+  "orden_visualizacion": 7
+}
+Resultado Esperado: 200 OK / 201 Created (según tu controlador)
+---------------------------------------------------------
+5. ELIMINAR UNA PROVINCIA
+---------------------------------------------------------
+Método: DELETE
+URL: http://localhost:3000/api/province/
+Body: (No requiere)
+Resultado Esperado: 200 OK
